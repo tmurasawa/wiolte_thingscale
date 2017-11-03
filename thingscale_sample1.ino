@@ -12,6 +12,7 @@
 #define MQTT_SERVER_PORT  (1883)
 
 #define ID                "WioLTE_"
+// ThingScale
 #define OUT_TOPIC         "E64CE564379A0CC8B000CA84CFDD61F2/json"
 #define IN_TOPIC          "E64CE564379A0CC8B000CA84CFDD61F2/440103072674825/subscribe"
 
