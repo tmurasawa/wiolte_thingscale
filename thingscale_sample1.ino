@@ -11,9 +11,9 @@
 #define MQTT_SERVER_HOST  "beam.soracom.io"
 #define MQTT_SERVER_PORT  (1883)
 
-#define ID                "WioLTE"
-#define OUT_TOPIC         "<YOUR_THINGSCALE_DEVICE_TOKEN>/json"
-#define IN_TOPIC          "<YOUR_THINGSCALE_DEVICE_TOKEN>/<YOUR_SORACOM_IMSI>/subscribe"
+#define ID                "WioLTE_"
+#define OUT_TOPIC         "E64CE564379A0CC8B000CA84CFDD61F2/json"
+#define IN_TOPIC          "E64CE564379A0CC8B000CA84CFDD61F2/440103072674825/subscribe"
 
 #define INTERVAL          (60000)
 
@@ -22,6 +22,9 @@ WioLTEClient WioClient(&Wio);
 PubSubClient MqttClient;
 
 String cmd_string;
+long randnum;
+String client;
+char client_id[32];
 
 void callback(char* topic, byte* payload, unsigned int length) {
   cmd_string = "";
@@ -76,7 +79,13 @@ void setup() {
   MqttClient.setServer(MQTT_SERVER_HOST, MQTT_SERVER_PORT);
   MqttClient.setCallback(callback);
   MqttClient.setClient(WioClient);
-  if (!MqttClient.connect(ID)) {
+  randnum = random(100000);
+  client = String(ID + (String)randnum);
+  SerialUSB.print("client ID:");
+  SerialUSB.print(client);
+  SerialUSB.println("");
+  client.toCharArray(client_id, 32);
+  if (!MqttClient.connect(client_id)) {
     SerialUSB.println("### ERROR! ###");
     return;
   }
