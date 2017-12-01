@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <config.h>
 
+#define ANALOG_A4 (WIOLTE_A4)
+
 #define APN               "soracom.io"
 #define USERNAME          "sora"
 #define PASSWORD          "sora"
@@ -51,6 +53,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 
 void setup() {
+  pinMode(ANALOG_A4, INPUT_ANALOG);
+  randomSeed(analogRead(ANALOG_A4));
   delay(200);
 
   SerialUSB.println("");
